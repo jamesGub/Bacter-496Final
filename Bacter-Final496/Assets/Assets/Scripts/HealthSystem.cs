@@ -8,6 +8,7 @@ public class HealthSystem : MonoBehaviour
     public float maxHealth = 100f; 
     public float currentHealth; 
     public float healthDecreaseRate = 5f; 
+    public float toxicHealthDecreaseRate = 10f; 
 
     public Slider healthBar; 
 
@@ -41,5 +42,21 @@ public class HealthSystem : MonoBehaviour
     public void CollectFoodPellet(float healthAmount)
     {
         currentHealth = Mathf.Min(maxHealth, currentHealth + healthAmount); 
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "ToxicCloud")
+        {
+            healthDecreaseRate = toxicHealthDecreaseRate;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.name == "ToxicCloud")
+        {
+            healthDecreaseRate = 5f;
+        }
     }
 }

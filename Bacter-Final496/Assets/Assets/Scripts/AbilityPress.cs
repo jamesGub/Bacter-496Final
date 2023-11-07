@@ -8,6 +8,7 @@ public class AbilityPress : MonoBehaviour
     public HealthSystem maxHealth;
     public HealthSystem currentHealth;
     public PlayerController moveSpeed; 
+
     public void ApplyLysosomicAbility() {
             if (mitosisGauge != null) { 
                 mitosisGauge.ApplyLysosomicAbility();

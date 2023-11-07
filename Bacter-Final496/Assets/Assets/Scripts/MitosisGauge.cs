@@ -13,12 +13,15 @@ public class MitosisGauge : MonoBehaviour
     public AudioSource LvlEffect;
     public AudioClip Fanfare;
     public GameObject abilityPanel;
-    private bool eventTriggered = false; 
+    private bool eventTriggered = false;
 
     void Start()
     {
         currentGauge = 0f; 
         UpdateMitosisBar(); 
+        if (mitosisBar != null) {
+            UpdateMitosisBar();
+        }
         if (abilityPanel != null) { 
             abilityPanel.SetActive(false);
         }
@@ -36,7 +39,9 @@ public class MitosisGauge : MonoBehaviour
 
     void UpdateMitosisBar()
     {
-        mitosisBar.value = currentGauge / maxGauge;
+        if (mitosisBar != null) { 
+            mitosisBar.value = currentGauge / maxGauge;
+        }
     }
 
     void EventTriggered()
@@ -66,7 +71,6 @@ public class MitosisGauge : MonoBehaviour
         ResumeGame();
 
     }
-
      public void SelectAbility(int abilityIndex) {
         
         Debug.Log("Ability " + abilityIndex + " selected!");

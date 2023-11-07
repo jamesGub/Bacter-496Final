@@ -5,13 +5,17 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject foodPelletPrefab; 
+    public GameObject toxicCloudPrefab;
     public int numberOfPellets = 50; 
+
+    public int numberOfClouds = 30;
     public float spawnAreaWidth = 10f; 
     public float spawnAreaHeight = 10f; 
 
     void Start()
     {
         SpawnFoodPellets();
+        SpawnToxicCoulds();
     }
 
     void SpawnFoodPellets()
@@ -20,6 +24,17 @@ public class Spawner : MonoBehaviour
         {
             Vector3 randomPosition = new Vector3(Random.Range(-spawnAreaWidth, spawnAreaWidth), Random.Range(-spawnAreaHeight, spawnAreaHeight), 0);
             GameObject newPellet = Instantiate(foodPelletPrefab, randomPosition, Quaternion.identity);
+
+            
+            SpriteRenderer pelletRenderer = newPellet.GetComponent<SpriteRenderer>();
+            pelletRenderer.color = new Color(Random.value, Random.value, Random.value, 1); 
+        }
+    }
+
+    void SpawnToxicCoulds() { 
+        for (int i = 0; i < numberOfClouds; i++) { 
+            Vector3 randomPosition = new Vector3(Random.Range(-spawnAreaWidth, spawnAreaWidth), Random.Range(-spawnAreaHeight, spawnAreaHeight), 0);
+            GameObject newPellet = Instantiate(toxicCloudPrefab, randomPosition, Quaternion.identity);
 
             
             SpriteRenderer pelletRenderer = newPellet.GetComponent<SpriteRenderer>();

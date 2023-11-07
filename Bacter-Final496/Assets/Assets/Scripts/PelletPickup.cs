@@ -9,7 +9,7 @@ public class PelletPickup : MonoBehaviour
     public AudioClip popN;
     public float minPitch;
     public float maxPitch;
-    public float healthAmount = 4.0f; 
+    public float healthAmount = 25.0f; 
     public float gaugeAmount = 5.0f;
 
    
