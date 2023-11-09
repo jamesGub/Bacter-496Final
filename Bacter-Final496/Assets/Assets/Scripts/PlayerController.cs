@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f; 
     public int dashCharges = 3;
     public bool isDashing = false;
-    private float dashCooldown = 5.0f;
+    protected float dashCooldown = 3.0f;
     private float dashDuration = 0.2f;
     private float dashTimer = 0.0f;
     public bool dashUnlock = false;
+    public TMP_Text dashChargesText;
 
     public MitosisGauge mitosisGauge;
 
@@ -24,21 +26,32 @@ public class PlayerController : MonoBehaviour
   
     void Update() {
 
-      if (isDashing) { 
+        if (Input.GetKeyDown(KeyCode.LeftShift)) { 
+        StartDashAbility(); 
+    }    
+        
+        if (isDashing) { 
+            dashTimer += Time.deltaTime;
+
+            if(dashTimer >= dashDuration) { 
+                isDashing = false;
+                dashTimer = 0.0f;  
+            } 
+        }
+        
+            
+        else {
+                if (dashCharges < 3 && dashTimer >= dashCooldown) {
+                dashCharges++;
+                dashTimer = 0.0f;
+                UpdateDashChargesUI();
+        }
+            
         dashTimer += Time.deltaTime;
 
-        if(dashTimer >= dashDuration) { 
-          isDashing = false;
-          dashTimer = 0.0f;  
-        }
+        MovePlayer();
     }
-    else if (dashCharges < 3 && dashTimer >= dashCooldown) { 
-        dashCharges++;
-        dashTimer = 0.0f;
-    }
-
-    MovePlayer(); 
-    }
+}
 
     IEnumerator Dash() { 
         isDashing = true;
@@ -52,6 +65,13 @@ public class PlayerController : MonoBehaviour
         }
     
     }
+
+    void UpdateDashChargesUI() {
+        if (dashChargesText != null)
+        {
+            dashChargesText.text = "Dash Charges: " + dashCharges;
+        }
+    }
     void MovePlayer() { 
         
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -62,6 +82,7 @@ public class PlayerController : MonoBehaviour
     }
 
 }
+
 
 
 

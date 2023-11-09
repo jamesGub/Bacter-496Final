@@ -13,6 +13,7 @@ public class MitosisGauge : MonoBehaviour
     public AudioSource LvlEffect;
     public AudioClip Fanfare;
     public GameObject abilityPanel;
+    public GameObject bacPlayer;
     private bool eventTriggered = false;
 
     void Start()
@@ -63,6 +64,10 @@ public class MitosisGauge : MonoBehaviour
             healthSystem.UpdateHealthBar(); 
         }
 
+        if (bacPlayer != null) { 
+            Vector3 currentScale = bacPlayer.transform.localScale;
+            bacPlayer.transform.localScale = new Vector3(currentScale.x * 2, currentScale.y * 2, currentScale.z * 2);
+        }
        
         if (playerController != null) {
             playerController.moveSpeed -= 2.0f; 

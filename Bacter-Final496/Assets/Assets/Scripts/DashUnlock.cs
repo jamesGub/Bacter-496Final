@@ -10,12 +10,9 @@ public class DashUnlock : MonoBehaviour
 
     public void EnableDashAbility()
     {
-        if (playerController != null)
-        {
             playerController.dashUnlock = true; 
             playerController.StartDashAbility(); 
             mitosisGauge.ResumeGame();
-        }
     }
 }
 

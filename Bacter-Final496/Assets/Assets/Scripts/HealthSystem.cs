@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
-{
+{ 
     public float maxHealth = 100f; 
     public float currentHealth; 
     public float healthDecreaseRate = 5f; 
@@ -12,25 +13,33 @@ public class HealthSystem : MonoBehaviour
 
     public Slider healthBar; 
 
+    private bool toxicEffect = false;
+
     void Start()
     {
-        currentHealth = maxHealth; 
+        currentHealth = maxHealth;
     }
 
     void Update()
     {
-        DecreaseHealthOverTime(); 
-        UpdateHealthBar(); 
+        if (!toxicEffect){
+            DecreaseHealthOverTime(healthDecreaseRate);
+        } else {
+            DecreaseHealthOverTime(toxicHealthDecreaseRate);
+        }
+        UpdateHealthBar();
     }
 
-    void DecreaseHealthOverTime()
+    void DecreaseHealthOverTime(float healthDecreaseRate)
     {
+        if (!toxicEffect) { 
         currentHealth -= healthDecreaseRate * Time.deltaTime; 
+        }
         if (currentHealth <= 0)
         {
             currentHealth = 0; 
             Destroy(gameObject);
-            //Application.Quit();  
+            SceneManager.LoadScene("SampleScene"); 
         }
     }
 
@@ -39,24 +48,13 @@ public class HealthSystem : MonoBehaviour
         healthBar.value = currentHealth / maxHealth; 
     }
 
+     public void SetToxicCloud(bool isAffected)
+    {
+        toxicEffect = isAffected;
+    }
+
     public void CollectFoodPellet(float healthAmount)
     {
         currentHealth = Mathf.Min(maxHealth, currentHealth + healthAmount); 
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.name == "ToxicCloud")
-        {
-            healthDecreaseRate = toxicHealthDecreaseRate;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.name == "ToxicCloud")
-        {
-            healthDecreaseRate = 5f;
-        }
     }
 }
