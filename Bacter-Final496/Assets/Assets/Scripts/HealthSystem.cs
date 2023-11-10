@@ -12,8 +12,10 @@ public class HealthSystem : MonoBehaviour
     public float toxicHealthDecreaseRate = 10f; 
 
     public Slider healthBar; 
+    public GameObject pressPanel;
 
     private bool toxicEffect = false;
+    private bool hasStartedMoving = false;
 
     void Start()
     {
@@ -22,12 +24,16 @@ public class HealthSystem : MonoBehaviour
 
     void Update()
     {
-        if (!toxicEffect){
+        if(hasStartedMoving) {
+            if (!toxicEffect){
             DecreaseHealthOverTime(healthDecreaseRate);
-        } else {
+            } else {
             DecreaseHealthOverTime(toxicHealthDecreaseRate);
+            }
+            
         }
         UpdateHealthBar();
+    
     }
 
     void DecreaseHealthOverTime(float healthDecreaseRate)
@@ -43,6 +49,7 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+
     public void UpdateHealthBar()
     {
         healthBar.value = currentHealth / maxHealth; 
@@ -51,6 +58,11 @@ public class HealthSystem : MonoBehaviour
      public void SetToxicCloud(bool isAffected)
     {
         toxicEffect = isAffected;
+    }
+
+    public void PlayerStartedMoving() { 
+        hasStartedMoving = true;
+        Destroy(pressPanel);
     }
 
     public void CollectFoodPellet(float healthAmount)

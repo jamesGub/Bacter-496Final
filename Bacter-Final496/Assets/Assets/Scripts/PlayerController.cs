@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float dashTimer = 0.0f;
     public bool dashUnlock = false;
     public TMP_Text dashChargesText;
+
+    public HealthSystem healthSystem;
 
     public MitosisGauge mitosisGauge;
 
@@ -79,6 +82,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontalInput, verticalInput, 0) * moveSpeed * Time.deltaTime;
         transform.position += movement;
+         
+         if (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f){
+            healthSystem.PlayerStartedMoving();
+        }
     }
 
 }
