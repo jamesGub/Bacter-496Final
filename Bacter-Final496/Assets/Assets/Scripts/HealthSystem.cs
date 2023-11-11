@@ -10,6 +10,9 @@ public class HealthSystem : MonoBehaviour
     public float currentHealth; 
     public float healthDecreaseRate = 5f; 
     public float toxicHealthDecreaseRate = 10f; 
+    private float regenerationRate = 20f;
+
+    private float regenerationTimer = 0f;
 
     public Slider healthBar; 
     public GameObject pressPanel;
@@ -32,6 +35,19 @@ public class HealthSystem : MonoBehaviour
             }
             
         }
+
+        if(regenerationTimer > 0) { 
+            regenerationTimer -= Time.deltaTime;
+
+            if(regenerationTimer <= 0) { 
+                currentHealth += regenerationRate;
+                if(currentHealth > maxHealth) { 
+                    currentHealth = maxHealth;
+                }
+                UpdateHealthBar();
+            }
+        }
+
         UpdateHealthBar();
     
     }
@@ -64,7 +80,10 @@ public class HealthSystem : MonoBehaviour
         hasStartedMoving = true;
         Destroy(pressPanel);
     }
-
+    
+    public void RegenerateHealth() { 
+        regenerationTimer = 5f;
+    }
     public void CollectFoodPellet(float healthAmount)
     {
         currentHealth = Mathf.Min(maxHealth, currentHealth + healthAmount); 

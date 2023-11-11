@@ -15,6 +15,7 @@ public class MitosisGauge : MonoBehaviour
     public GameObject abilityPanel;
     public GameObject bacPlayer;
     private bool eventTriggered = false;
+    private bool regenActive= false;
 
     void Start()
     {
@@ -36,6 +37,12 @@ public class MitosisGauge : MonoBehaviour
             eventTriggered = true;
             Time.timeScale = 0; 
         }
+
+        if (regenActive) { 
+            if (Input.GetKeyDown(KeyCode.R)){ 
+                ApplyRegenAbility();
+            }
+        }
     }
 
     void UpdateMitosisBar()
@@ -53,6 +60,14 @@ public class MitosisGauge : MonoBehaviour
         if (abilityPanel != null) {
             abilityPanel.SetActive(true);
             Debug.Log("Event Triggered! Game paused. Click a button to resume.");
+        }
+    }
+
+
+    public void ActivateRegenerationAbility() { 
+        if (!regenActive) { 
+            regenActive = true;
+            EventTriggered(); 
         }
     }
 
@@ -75,6 +90,15 @@ public class MitosisGauge : MonoBehaviour
      
         ResumeGame();
 
+    }
+
+    public void ApplyRegenAbility() { 
+        if (healthSystem != null) {
+            healthSystem.RegenerateHealth();
+        }
+
+        regenActive = false;
+        ResumeGame();
     }
      public void SelectAbility(int abilityIndex) {
         

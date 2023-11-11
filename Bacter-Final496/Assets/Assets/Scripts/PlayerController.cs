@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float dashDuration = 0.2f;
     private float dashTimer = 0.0f;
     public bool dashUnlock = false;
+    private bool canMove = true;
     public TMP_Text dashChargesText;
 
     public HealthSystem healthSystem;
@@ -29,9 +30,11 @@ public class PlayerController : MonoBehaviour
   
     void Update() {
 
+        if (canMove) {
+
         if (Input.GetKeyDown(KeyCode.LeftShift)) { 
         StartDashAbility(); 
-    }    
+        }    
         
         if (isDashing) { 
             dashTimer += Time.deltaTime;
@@ -53,6 +56,11 @@ public class PlayerController : MonoBehaviour
         dashTimer += Time.deltaTime;
 
         MovePlayer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && mitosisGauge != null) { 
+            mitosisGauge.ApplyRegenAbility();
+        }    
     }
 }
 
@@ -86,6 +94,14 @@ public class PlayerController : MonoBehaviour
          if (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f){
             healthSystem.PlayerStartedMoving();
         }
+    }
+
+    public void EnablePlayerMovement() { 
+        canMove = true;
+    }
+
+    public void DisablePlayerMovement() { 
+        canMove = false; 
     }
 
 }
