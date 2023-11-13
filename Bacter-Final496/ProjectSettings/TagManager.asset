@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FoodPellet
   - ToxicCloud
+  - AIPlayer
   layers:
   - Default
   - TransparentFX

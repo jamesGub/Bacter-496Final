@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
     public HealthSystem healthSystem;
 
     public MitosisGauge mitosisGauge;
+
+    public float collisionDamage = 20f;
 
    public void StartDashAbility()
     {
@@ -62,6 +65,9 @@ public class PlayerController : MonoBehaviour
             mitosisGauge.ApplyRegenAbility();
         }    
     }
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            SceneManager.LoadScene("Menu");
+        }
 }
 
     IEnumerator Dash() { 
@@ -102,6 +108,11 @@ public class PlayerController : MonoBehaviour
 
     public void DisablePlayerMovement() { 
         canMove = false; 
+    }
+
+    public float DamageOther()
+    {
+        return collisionDamage;
     }
 
 }

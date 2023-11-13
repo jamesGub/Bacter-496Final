@@ -60,8 +60,8 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0; 
-            Destroy(gameObject);
-            SceneManager.LoadScene("SampleScene"); 
+            //Destroy(gameObject);
+            SceneManager.LoadScene("Menu"); 
         }
     }
 
@@ -88,4 +88,10 @@ public class HealthSystem : MonoBehaviour
     {
         currentHealth = Mathf.Min(maxHealth, currentHealth + healthAmount); 
     }
+
+    public void DamagePlayer(float damageAmount)
+    {
+        currentHealth -= damageAmount;
+    }
+
 }
