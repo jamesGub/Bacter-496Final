@@ -14,8 +14,14 @@ public class MitosisGauge : MonoBehaviour
     public AudioClip Fanfare;
     public GameObject abilityPanel;
     public GameObject bacPlayer;
+    public GameObject shieldPrefab;
+    private GameObject shieldInstance;
+    private bool nimbleUnlocked = false;
+    private bool nimbleApplied = false;
     private bool eventTriggered = false;
     private bool regenActive= false;
+    private bool shieldActive = false;
+    private bool shieldUnlocked = false; 
 
     void Start()
     {
@@ -42,6 +48,10 @@ public class MitosisGauge : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R)){ 
                 ApplyRegenAbility();
             }
+        }
+
+        if (nimbleUnlocked && !nimbleApplied) { 
+            ApplyNimble();
         }
     }
 
@@ -100,14 +110,57 @@ public class MitosisGauge : MonoBehaviour
         regenActive = false;
         ResumeGame();
     }
+
+    public void UnlockNimble() { 
+        nimbleUnlocked = true;
+    }
+
+    public void ApplyNimble() { 
+        playerController.moveSpeed *= 1.6f;
+        transform.localScale *= 0.6f;
+        nimbleApplied = true;
+        ResumeGame(); 
+    }
+
+
+       public void UnlockShield()
+    {
+        shieldUnlocked = true;
+        ResumeGame();
+    }
+
+    public bool IsShieldUnlocked()
+    {
+        return shieldUnlocked;
+    }
+
+    public bool IsShieldActive()
+    {
+        return shieldActive;
+    }
+
+    
+    public bool UseMitosisGauge(float amount) {
+        if (currentGauge >= amount) {
+            currentGauge -= amount;
+            UpdateMitosisBar();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void SetShieldActive(bool active) {
+        shieldActive = active; 
+    }
+    
      public void SelectAbility(int abilityIndex) {
         
         Debug.Log("Ability " + abilityIndex + " selected!");
        
     }
 
-    public void ResumeGame()
-    {
+    public void ResumeGame() {
         currentGauge = 0f;
         UpdateMitosisBar();
         Time.timeScale = 1; 

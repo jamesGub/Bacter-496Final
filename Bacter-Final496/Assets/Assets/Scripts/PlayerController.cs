@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f; 
+    public float moveSpeed = 5f;
     public int dashCharges = 3;
     public bool isDashing = false;
     protected float dashCooldown = 3.0f;
@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && mitosisGauge != null) { 
             mitosisGauge.ApplyRegenAbility();
         }    
+
     }
         if (Input.GetKeyDown(KeyCode.Escape)) {
             SceneManager.LoadScene("Menu");

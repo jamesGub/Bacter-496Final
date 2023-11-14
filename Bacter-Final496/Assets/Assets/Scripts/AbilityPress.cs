@@ -8,6 +8,8 @@ public class AbilityPress : MonoBehaviour
     public HealthSystem maxHealth;
     public HealthSystem currentHealth;
     public PlayerController moveSpeed; 
+    public PlayerController playerController;
+    public ShieldAbility shieldAbility;
 
     public void ApplyLysosomicAbility() {
             if (mitosisGauge != null) { 
@@ -17,4 +19,21 @@ public class AbilityPress : MonoBehaviour
                 Debug.Log("Current Health: " + currentHealth);
             }
         }
+
+    public void ApplyNimbleAbility() { 
+        if (mitosisGauge != null) { 
+            mitosisGauge.UnlockNimble();
+            mitosisGauge.ApplyNimble(); 
+            Debug.Log("Movement ability unlocked"); 
+        }
+    }
+
+    public void UnlockShieldAbility()
+    {
+        if (mitosisGauge != null)
+        {
+            mitosisGauge.UnlockShield();
+        }
+    }
+        
 }
