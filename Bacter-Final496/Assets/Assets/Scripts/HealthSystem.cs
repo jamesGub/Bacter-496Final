@@ -20,9 +20,23 @@ public class HealthSystem : MonoBehaviour
     private bool toxicEffect = false;
     private bool hasStartedMoving = false;
 
+    public ScreenShake screenShake;
+
     void Start()
     {
         currentHealth = maxHealth;
+        PauseGame();
+        screenShake = GetComponentInChildren<ScreenShake>(); 
+        
+        if (screenShake == null) { 
+            screenShake = FindObjectOfType<ScreenShake>();
+        }
+
+        if (screenShake == null) { 
+            Debug.LogError("ScreenShake script not found."); 
+        } else { 
+            screenShake.enabled = false;
+        }
     }
 
     void Update()
@@ -49,7 +63,19 @@ public class HealthSystem : MonoBehaviour
         }
 
         UpdateHealthBar();
-    
+
+        if (screenShake == null) {
+            Debug.LogError("ScreenShake script reference is null.");
+            return;
+        }
+
+         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        {
+            PlayerStartedMoving(); 
+            DestroyPressPanel();
+            screenShake.enabled = true; 
+        }
+
     }
 
     void DecreaseHealthOverTime(float healthDecreaseRate)
@@ -63,6 +89,7 @@ public class HealthSystem : MonoBehaviour
             //Destroy(gameObject);
             SceneManager.LoadScene("Menu"); 
         }
+        
     }
 
 
@@ -76,11 +103,25 @@ public class HealthSystem : MonoBehaviour
         toxicEffect = isAffected;
     }
 
+    void PauseGame() { 
+        Time.timeScale = 0;
+    }
+
+    void StartGame() { 
+        Time.timeScale = 1;
+    }
+
     public void PlayerStartedMoving() { 
         hasStartedMoving = true;
-        Destroy(pressPanel);
     }
     
+    public void DestroyPressPanel() { 
+        
+        if (pressPanel != null) { 
+            Destroy(pressPanel);
+            StartGame();
+        }
+    }    
     public void RegenerateHealth() { 
         regenerationTimer = 5f;
     }

@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
     public GameObject foodPelletPrefab;
     public GameObject toxicCloudPrefab;
     public int numberOfPellets = 50;
+    public int additionalPelletsAfterInterval = 3000;
 
     public int numberOfClouds = 30;
     public float spawnAreaWidth = 10f;
@@ -26,6 +27,7 @@ public class Spawner : MonoBehaviour
     {
         SpawnFoodPellets();
         SpawnToxicCoulds();
+        StartCoroutine(PelletsOnInterval());
     }
 
     void SpawnFoodPellets()
@@ -91,6 +93,16 @@ public class Spawner : MonoBehaviour
             SpriteRenderer pelletRenderer = newPellet.GetComponent<SpriteRenderer>();
             pelletRenderer.color = new Color(Random.value, Random.value, Random.value, 1);
         }
+    }
+
+    IEnumerator PelletsOnInterval() { 
+        yield return new WaitForSeconds(10f); 
+
+        for (int i = 0; i < additionalPelletsAfterInterval; i++)
+         {
+            Vector3 randomPosition = new Vector3(Random.Range(-spawnAreaWidth, spawnAreaWidth), Random.Range(-spawnAreaHeight, spawnAreaHeight), 0);
+            GameObject newPellet = Instantiate(foodPelletPrefab, randomPosition, Quaternion.identity); 
+         }
     }
 }
 
