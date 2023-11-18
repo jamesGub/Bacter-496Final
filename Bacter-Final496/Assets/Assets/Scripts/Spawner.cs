@@ -98,11 +98,13 @@ public class Spawner : MonoBehaviour
     IEnumerator PelletsOnInterval() { 
         yield return new WaitForSeconds(10f); 
 
-        for (int i = 0; i < additionalPelletsAfterInterval; i++)
-         {
-            Vector3 randomPosition = new Vector3(Random.Range(-spawnAreaWidth, spawnAreaWidth), Random.Range(-spawnAreaHeight, spawnAreaHeight), 0);
-            GameObject newPellet = Instantiate(foodPelletPrefab, randomPosition, Quaternion.identity); 
-         }
+        if (foodPelletPrefab != null) { 
+            for (int i = 0; i < additionalPelletsAfterInterval; i++)
+            {
+                Vector3 randomPosition = new Vector3(Random.Range(-spawnAreaWidth, spawnAreaWidth), Random.Range(-spawnAreaHeight, spawnAreaHeight), 0);
+                GameObject newPellet = Instantiate(foodPelletPrefab, randomPosition, Quaternion.identity); 
+            }
+        }
     }
 }
 

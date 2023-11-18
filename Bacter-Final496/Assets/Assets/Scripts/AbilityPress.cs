@@ -28,11 +28,15 @@ public class AbilityPress : MonoBehaviour
         }
     }
 
-    public void UnlockShieldAbility()
-    {
-        if (mitosisGauge != null)
-        {
+    public void UnlockShieldAbility() {
+        if (mitosisGauge != null) {
             mitosisGauge.UnlockShield();
+        }
+    }
+
+    public void UnlockCollisionAbility() {
+        if (mitosisGauge != null) {
+            mitosisGauge.UnlockCollision();
         }
     }
         

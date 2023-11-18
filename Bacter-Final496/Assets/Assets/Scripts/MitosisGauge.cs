@@ -22,6 +22,7 @@ public class MitosisGauge : MonoBehaviour
     private bool regenActive= false;
     private bool shieldActive = false;
     private bool shieldUnlocked = false; 
+    public bool abilityUnlocked = false;
 
     void Start()
     {
@@ -137,6 +138,11 @@ public class MitosisGauge : MonoBehaviour
     public bool IsShieldActive()
     {
         return shieldActive;
+    }
+
+    public void UnlockCollision() { 
+        abilityUnlocked = true;
+        ResumeGame(); 
     }
 
     

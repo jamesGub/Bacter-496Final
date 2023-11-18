@@ -14,6 +14,8 @@ public class HealthSystem : MonoBehaviour
 
     private float regenerationTimer = 0f;
 
+    public float collisionDamage = 20f;
+
     public Slider healthBar; 
     public GameObject pressPanel;
 

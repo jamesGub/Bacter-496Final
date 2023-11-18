@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ShieldAbility : MonoBehaviour
 {
     public GameObject shieldPrefab; 
     private GameObject shieldInstance;
     private bool shieldActive = false;
+    public TMP_Text coilText;
     public MitosisGauge mitosisGauge;
+
 
     void Update()
     {
         if (shieldActive) {
             MoveShield();
+            UpdateCoilTextUI(); 
         }
 
         if (Input.GetKeyDown(KeyCode.E) && mitosisGauge != null && mitosisGauge.IsShieldUnlocked()) {
             ToggleShield();
         }
+
+       
     }
 
     void ToggleShield()
@@ -36,7 +43,13 @@ public class ShieldAbility : MonoBehaviour
         }
     }
     
-
+    void UpdateCoilTextUI() { 
+        if (coilText != null && mitosisGauge.currentGauge >= 50.0) { 
+            coilText.text = "Coil Ready! Press E to activate!";
+        } if (coilText != null && mitosisGauge.currentGauge <= 49.9) { 
+            coilText.text = "Charging coil...";
+        }
+    }
 
     void MoveShield() {
         if (shieldInstance != null) {
