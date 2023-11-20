@@ -15,6 +15,8 @@ public class MitosisGauge : MonoBehaviour
     public GameObject abilityPanel;
     public GameObject bacPlayer;
     public GameObject shieldPrefab;
+    public GameObject clonePrefab;
+    public Sprite cloneSprite;
     private GameObject shieldInstance;
     private bool nimbleUnlocked = false;
     private bool nimbleApplied = false;
@@ -42,7 +44,9 @@ public class MitosisGauge : MonoBehaviour
         {
             EventTriggered(); 
             eventTriggered = true;
-            Time.timeScale = 0; 
+            Time.timeScale = 0;
+            GameObject clone = Instantiate(clonePrefab, this.transform.position, Quaternion.identity);
+            clone.GetComponent<SpriteRenderer>().sprite = cloneSprite;
         }
 
         if (regenActive) { 

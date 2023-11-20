@@ -868,7 +868,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a3486080bd0225f4ba38c47196e177ee, type: 3}
   - {fileID: 21300000, guid: fda8f7314c0301b409095450be06de7b, type: 3}
   - {fileID: 21300000, guid: 0449841eb54296645bb8e2e578529714, type: 3}
-  maxEnemies: 50
+  maxEnemies: 8
   spawnAreaWidth: 100
   spawnAreaHeight: 100
 --- !u!4 &212522744
@@ -921,7 +921,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -16.814}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -5.699997, y: -0.19999981}
+  m_AnchoredPosition: {x: -5.700012, y: -0.2000122}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212925759
@@ -1240,7 +1240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -649, y: -187}
+  m_AnchoredPosition: {x: -823, y: -258}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276239935
@@ -1745,9 +1745,9 @@ RectTransform:
   m_Father: {fileID: 172360893}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -540, y: 218}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -124, y: -44}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &461051239
@@ -2489,9 +2489,9 @@ RectTransform:
   m_Father: {fileID: 172360893}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -479, y: 348}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -45}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659141141
@@ -3279,9 +3279,9 @@ RectTransform:
   m_Father: {fileID: 172360893}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -479, y: 286}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -107}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &778231398
@@ -3371,9 +3371,9 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -649, y: -322}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 137, y: 117}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &798040713
 MonoBehaviour:
@@ -3448,7 +3448,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -7.9, y: 0}
+  m_AnchoredPosition: {x: -7.9000244, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &854281521
@@ -5103,6 +5103,8 @@ MonoBehaviour:
   abilityPanel: {fileID: 251860492}
   bacPlayer: {fileID: 1252308329}
   shieldPrefab: {fileID: 68942250}
+  clonePrefab: {fileID: 1750085976}
+  cloneSprite: {fileID: 21300000, guid: e0bd6624304e06246ba89eb3e0256160, type: 3}
   abilityUnlocked: 0
 --- !u!114 &1252308337
 MonoBehaviour:
@@ -7819,6 +7821,10 @@ PrefabInstance:
       propertyPath: origin
       value: 
       objectReference: {fileID: 406392676}
+    - target: {fileID: 1088440567760796083, guid: 69458e01d6c97064f9911ca06ce06ab0, type: 3}
+      propertyPath: clonePrefab
+      value: 
+      objectReference: {fileID: 1750085976}
     - target: {fileID: 1088440567760796087, guid: 69458e01d6c97064f9911ca06ce06ab0, type: 3}
       propertyPath: m_Name
       value: EnemyBacteria(0)

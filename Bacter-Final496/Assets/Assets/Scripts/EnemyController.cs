@@ -39,6 +39,7 @@ public class EnemyController : MonoBehaviour
     public float pelletGaugeAmount = 5.0f;
     //private bool eventTriggered = false;
     //private bool regenActive = false;
+    public GameObject clonePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -70,24 +71,28 @@ public class EnemyController : MonoBehaviour
                     ApplyLysosomicAbility();
                     break;
                 case 1:
-                    Debug.Log(gameObject.name + " evolved! 1");
+                    Debug.Log(gameObject.name + " evolved! Metabolic (1)");
+                    ApplyMetabolicAbility();
                     break;
                 case 2:
-                    Debug.Log(gameObject.name + " evolved! 2");
+                    Debug.Log(gameObject.name + " evolved! Flagella (2)");
+                    ApplyFlagellaAbility();
                     break;
                 case 3:
-                    Debug.Log(gameObject.name + " evolved! 3");
+                    Debug.Log(gameObject.name + " evolved! Coil (3)");
+                    ApplyCoilAbility();
                     break;
                 case 4:
-                    Debug.Log(gameObject.name + " evolved! 4");
-                    break;
-                case 5:
-                    Debug.Log(gameObject.name + " evolved! 5");
+                    Debug.Log(gameObject.name + " evolved! Offensive (4)");
+                    ApplyOffensiveAbility();
                     break;
                 default:
-                    Debug.Log(gameObject.name + " evolved! (default)");
+                    Debug.Log(gameObject.name + " evolved! Lysosomic (default)");
+                    ApplyLysosomicAbility();
                     break;
             }
+            //spawn duplicate clonePrefab
+            Instantiate(clonePrefab, this.transform.position, Quaternion.identity);
         }
 
         if (target == null)
@@ -228,6 +233,27 @@ public class EnemyController : MonoBehaviour
     {
         return collisionDamage;
     }
+
+    public void ApplyMetabolicAbility()
+    {
+
+    }
+
+    public void ApplyFlagellaAbility()
+    {
+
+    }
+
+    public void ApplyCoilAbility()
+    {
+
+    }
+
+    public void ApplyOffensiveAbility()
+    {
+
+    }
+
 
 }
 
