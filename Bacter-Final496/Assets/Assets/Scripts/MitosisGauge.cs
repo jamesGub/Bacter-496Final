@@ -13,7 +13,19 @@ public class MitosisGauge : MonoBehaviour
     public AudioSource LvlEffect;
     public AudioClip Fanfare;
     public GameObject abilityPanel;
-    private bool eventTriggered = false; 
+    public GameObject bacPlayer;
+    public GameObject shieldPrefab;
+    public GameObject clonePrefab;
+    public CollisionAbility collisionAbility; 
+    public Sprite cloneSprite;
+    private GameObject shieldInstance;
+    private bool nimbleUnlocked = false;
+    private bool nimbleApplied = false;
+    private bool eventTriggered = false;
+    private bool regenActive= false;
+    private bool shieldActive = false;
+    private bool shieldUnlocked = false; 
+    public bool abilityUnlocked = false;
 
     void Start()
     {
@@ -30,7 +42,21 @@ public class MitosisGauge : MonoBehaviour
         {
             EventTriggered(); 
             eventTriggered = true;
-            Time.timeScale = 0; 
+            Time.timeScale = 0;
+            if (clonePrefab != null) { 
+                GameObject clone = Instantiate(clonePrefab, this.transform.position, Quaternion.identity);
+                clone.GetComponent<SpriteRenderer>().sprite = cloneSprite;
+            }
+        }
+
+        if (regenActive) { 
+            if (Input.GetKeyDown(KeyCode.R)){ 
+                ApplyRegenAbility();
+            }
+        }
+
+        if (nimbleUnlocked && !nimbleApplied) { 
+            ApplyNimble();
         }
     }
 
@@ -67,14 +93,73 @@ public class MitosisGauge : MonoBehaviour
 
     }
 
+    public void ApplyRegenAbility() { 
+        if (healthSystem != null) {
+            healthSystem.RegenerateHealth();
+        }
+
+        regenActive = false;
+        ResumeGame();
+    }
+
+    public void UnlockNimble() { 
+        nimbleUnlocked = true;
+    }
+
+    public void ApplyNimble() { 
+        playerController.moveSpeed *= 1.6f;
+        transform.localScale *= 0.6f;
+        nimbleApplied = true;
+        ResumeGame(); 
+    }
+
+
+       public void UnlockShield()
+    {
+        shieldUnlocked = true;
+        ResumeGame();
+    }
+
+    public bool IsShieldUnlocked()
+    {
+        return shieldUnlocked;
+    }
+
+    public bool IsShieldActive()
+    {
+        return shieldActive;
+    }
+
+    public void UnlockCollision() { 
+        Debug.Log("Running ability");
+        abilityUnlocked = true;
+        collisionAbility.UnlockAbility(); 
+        ResumeGame(); 
+    }
+
+    
+    public bool UseMitosisGauge(float amount) {
+        if (currentGauge >= amount) {
+            currentGauge -= amount;
+            UpdateMitosisBar();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void SetShieldActive(bool active) {
+        shieldActive = active; 
+    }
+    
      public void SelectAbility(int abilityIndex) {
         
         Debug.Log("Ability " + abilityIndex + " selected!");
        
     }
 
-    public void ResumeGame()
-    {
+    public void ResumeGame() {
+        Debug.Log("Game is resuming");
         currentGauge = 0f;
         UpdateMitosisBar();
         Time.timeScale = 1; 

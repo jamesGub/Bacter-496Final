@@ -16,4 +16,28 @@ public class AbilityPress : MonoBehaviour
                 Debug.Log("Current Health: " + currentHealth);
             }
         }
+
+    public void ApplyNimbleAbility() { 
+        if (mitosisGauge != null) { 
+            mitosisGauge.UnlockNimble();
+            mitosisGauge.ApplyNimble(); 
+            Debug.Log("Movement ability unlocked"); 
+        }
+    }
+
+    public void UnlockShieldAbility() {
+        if (mitosisGauge != null) {
+            mitosisGauge.UnlockShield();
+            shieldAbility.UpdateCoilTextUI(); 
+
+        }
+    }
+
+    public void UnlockCollisionAbility() {
+        Debug.Log("Running collision ability");
+        if (mitosisGauge != null) {
+            mitosisGauge.UnlockCollision();
+        }
+    }
+        
 }

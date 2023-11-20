@@ -34,7 +34,8 @@ void OnTriggerEnter2D(Collider2D other)
                 mitosisGauge.CollectFoodPellet(gaugeAmount);
             }
 
-            Destroy(other.gameObject); 
+            //Destroy(other.gameObject); 
+            other.gameObject.SetActive(false);
     }
 }
 }
