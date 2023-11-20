@@ -17,13 +17,16 @@ public class ShieldAbility : MonoBehaviour
     {
         if (shieldActive) {
             MoveShield();
-            UpdateCoilTextUI(); 
-        }
+            
+        } 
 
         if (Input.GetKeyDown(KeyCode.E) && mitosisGauge != null && mitosisGauge.IsShieldUnlocked()) {
             ToggleShield();
         }
 
+        if(mitosisGauge.IsShieldUnlocked()) {
+            UpdateCoilTextUI();
+        } 
        
     }
 
@@ -46,7 +49,7 @@ public class ShieldAbility : MonoBehaviour
     void UpdateCoilTextUI() { 
         if (coilText != null && mitosisGauge.currentGauge >= 50.0) { 
             coilText.text = "Coil Ready! Press E to activate!";
-        } if (coilText != null && mitosisGauge.currentGauge <= 49.9) { 
+        } else if (coilText != null && mitosisGauge.currentGauge <= 49.9) { 
             coilText.text = "Charging coil...";
         }
     }

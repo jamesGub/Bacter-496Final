@@ -23,7 +23,7 @@ public class MitosisGauge : MonoBehaviour
     private bool eventTriggered = false;
     private bool regenActive= false;
     private bool shieldActive = false;
-    private bool shieldUnlocked = false; 
+    public bool shieldUnlocked = false; 
     public bool abilityUnlocked = false;
 
     void Start()
