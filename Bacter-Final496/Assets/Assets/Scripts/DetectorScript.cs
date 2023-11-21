@@ -12,7 +12,10 @@ public class DetectorScript : MonoBehaviour
     //private ReferencedScript bacteriaController;
     private bool searching = true;
     private bool hunting = true;
+
     
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,23 +28,66 @@ public class DetectorScript : MonoBehaviour
 
         int searchIndex = 0;
 
-        Collider2D[] foundItem = Physics2D.OverlapCircleAll(parentBacteria.transform.position, 5);
-        foreach (var x in foundItem) Debug.Log(x.ToString());
+        Collider2D[] foundItem = Physics2D.OverlapCircleAll(parentBacteria.transform.position, 10);
+        //foreach (var x in foundItem) Debug.Log(x.ToString());
 
         if (foundItem[searchIndex] != null) { 
-            if (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[0].CompareTag("Player")) { 
+            if (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[searchIndex].CompareTag("Player")) { 
                 prey = foundItem[searchIndex];
                 hunting = false;
             }
-            else if (foundItem[searchIndex].CompareTag("FoodPellet")) { 
+            if (foundItem[searchIndex].CompareTag("FoodPellet")) { 
                 detectorTarget = foundItem[searchIndex].gameObject.transform;
                 searching = false;
             
             }
+            else
+            {
+                while (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[searchIndex].CompareTag("Player"))
+                {
+                    Debug.Log("while loop triggered");
+                    searchIndex++;
+                    if (foundItem.Length < searchIndex)
+                    {
+                        break;
+                    }
+                }
+                if (foundItem[searchIndex] != null)
+                {
+                    if (foundItem[searchIndex].CompareTag("FoodPellet"))
+                    {
+                        detectorTarget = foundItem[searchIndex].gameObject.transform;
+                        searching = false;
+
+                    }
+                }
+            }
         }
-       
-        Debug.Log("PFound: " + prey);
-        Debug.Log("DFound: " + detectorTarget);
+        /**else
+        {
+            while (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[searchIndex].CompareTag("Player"))
+            {
+                Debug.Log("while loop triggered");
+                searchIndex++;
+                if(foundItem.Length < searchIndex)
+                {
+                    break;
+                }
+            }
+            if(foundItem[searchIndex] != null)
+            {
+                if (foundItem[searchIndex].CompareTag("FoodPellet"))
+                {
+                    detectorTarget = foundItem[searchIndex].gameObject.transform;
+                    searching = false;
+
+                }
+            }
+            
+        }**/
+        Debug.Log("member of array is: " + foundItem[searchIndex]);
+        //Debug.Log("PFound: " + prey);
+        //Debug.Log("DFound: " + detectorTarget);
         
         if (prey != null)
         {
@@ -52,9 +98,14 @@ public class DetectorScript : MonoBehaviour
                 hunting = true;
             }
         }
-        else if (detectorTarget != null) { 
-             parentBacteria.GetComponent<EnemyController>().SetTarget(detectorTarget);
+        /**else**/ if (detectorTarget != null) {
+            Debug.Log("set target" + detectorTarget); 
+            parentBacteria.GetComponent<EnemyController>().SetTarget(detectorTarget);
 
+        }
+        else
+        {
+            Debug.Log("detectorTarget is null");
         }
         /*if (detectorTarget == null)
         {
