@@ -35,6 +35,7 @@ public class AbilityPress : MonoBehaviour
     }
 
     public void UnlockCollisionAbility() {
+        Debug.Log("Ability Collision Check");
         if (mitosisGauge != null) {
             mitosisGauge.UnlockCollision();
         }

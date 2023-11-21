@@ -144,7 +144,8 @@ public class MitosisGauge : MonoBehaviour
         return shieldActive;
     }
 
-    public void UnlockCollision() { 
+    public void UnlockCollision() {
+        Debug.Log("Mito Collision Check!");
         abilityUnlocked = true;
         ResumeGame(); 
     }

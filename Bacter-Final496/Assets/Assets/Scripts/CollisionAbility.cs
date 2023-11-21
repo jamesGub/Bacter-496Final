@@ -5,11 +5,14 @@ using UnityEngine;
 public class CollisionAbility : MonoBehaviour
 {
     private bool abilityUnlocked = false;
+    MitosisGauge mitosisGauge;
 
     public void UnlockAbility()
     {
-        abilityUnlocked = true;
         Debug.Log("Collision ability unlocked!");
+        mitosisGauge.UnlockCollision();  
+        abilityUnlocked = true;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
