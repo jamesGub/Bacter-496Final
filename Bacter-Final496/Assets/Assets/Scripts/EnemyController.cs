@@ -40,6 +40,7 @@ public class EnemyController : MonoBehaviour
     //private bool eventTriggered = false;
     //private bool regenActive = false;
     public GameObject clonePrefab;
+    public GameObject pelletPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +65,7 @@ public class EnemyController : MonoBehaviour
         {
             //when mitosis gauge is full, randomly selects a new trait, and activates that trait.
             currentGauge = 0f;
-            switch(Random.Range(0, 5))
+            switch(Random.Range(0, 4))
             {
                 case 0:
                     Debug.Log(gameObject.name + " evolved! Lysosomic (0)");
@@ -81,10 +82,6 @@ public class EnemyController : MonoBehaviour
                 case 3:
                     Debug.Log(gameObject.name + " evolved! Coil (3)");
                     ApplyCoilAbility();
-                    break;
-                case 4:
-                    Debug.Log(gameObject.name + " evolved! Offensive (4)");
-                    ApplyOffensiveAbility();
                     break;
                 default:
                     Debug.Log(gameObject.name + " evolved! Lysosomic (default)");
@@ -103,13 +100,13 @@ public class EnemyController : MonoBehaviour
         switch (bacteriaClass)
         {
             case "default":
-                DefaultBehavior();
+                StrikerBehavior(); //change to DefaultBehavior() if this is broken
                 break;
             case "striker":
                 StrikerBehavior();
                 break;
             default:
-                DefaultBehavior();
+                StrikerBehavior();
                 break;
         }
     }
@@ -172,6 +169,10 @@ public class EnemyController : MonoBehaviour
             currentHealth = 0;
             Debug.Log(gameObject.name + " died.");
             //convert mitosis gauge to a number of pellets, drop that many pellets in a small area.      OOOOOOOOOOOOO THIS IS A NOTE TO REMEMBER TO IMPLEMENT THIS FEATURE OOOOOOOOOOOOO
+            for (int i = 0;i<6;i++)
+            {
+                Instantiate(pelletPrefab,this.transform.position,Quaternion.identity);
+            }
             Destroy(gameObject);
         }
     }
@@ -236,7 +237,9 @@ public class EnemyController : MonoBehaviour
 
     public void ApplyMetabolicAbility()
     {
-
+        moveSpeed *= 1.6f;
+        Vector3 currentScale = gameObject.transform.localScale;
+        gameObject.transform.localScale = new Vector3(currentScale.x * 0.6f, currentScale.y * 0.6f, currentScale.z * 0.6f);
     }
 
     public void ApplyFlagellaAbility()
@@ -245,11 +248,6 @@ public class EnemyController : MonoBehaviour
     }
 
     public void ApplyCoilAbility()
-    {
-
-    }
-
-    public void ApplyOffensiveAbility()
     {
 
     }

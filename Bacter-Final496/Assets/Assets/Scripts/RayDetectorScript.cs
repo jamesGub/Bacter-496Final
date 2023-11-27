@@ -26,7 +26,7 @@ public class RayDetectorScript : MonoBehaviour
     void Update()
     {
 
-        int searchIndex = 0;
+        int searchIndex = Random.Range(0,5);
 
         Collider2D[] foundItem = Physics2D.OverlapCircleAll(parentBacteria.transform.position, 10);
         //foreach (var x in foundItem) Debug.Log(x.ToString());
@@ -92,9 +92,9 @@ public class RayDetectorScript : MonoBehaviour
         if (prey != null)
         {
             parentBacteria.GetComponent<EnemyController>().SetPrey(prey);
-            if ((prey.transform.position - parentBacteria.transform.position).magnitude > .5)
+            if ((prey.transform.position - parentBacteria.transform.position).magnitude > 10)
             {
-                //prey = null;
+                prey = null;
                 hunting = true;
             }
         }
