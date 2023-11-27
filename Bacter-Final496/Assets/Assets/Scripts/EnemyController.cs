@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     //public MitosisGauge mitosisGauge;
 
     [Header("Navigation")]
-    public string bacteriaClass = "default";
+    public string bacteriaClass = "striker";
 
     public Transform target;
     public Collider2D prey;
@@ -47,6 +47,7 @@ public class EnemyController : MonoBehaviour
     {
         currentHealth = maxHealth;
         target = origin.transform; //new Vector3(0f, 0f, 0f);
+        Debug.Log("my class is " + bacteriaClass);
     }
 
     // Update is called once per frame
@@ -100,7 +101,7 @@ public class EnemyController : MonoBehaviour
         switch (bacteriaClass)
         {
             case "default":
-                StrikerBehavior(); //change to DefaultBehavior() if this is broken
+                DefaultBehavior(); //change to DefaultBehavior() if this is broken
                 break;
             case "striker":
                 StrikerBehavior();
@@ -140,6 +141,12 @@ public class EnemyController : MonoBehaviour
         horizontalValue = direction.x;
         verticalValue = direction.y;
         Move(horizontalValue, verticalValue);
+
+        if (gameObject.GetComponent<Rigidbody2D>().velocity.x < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.x > -0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y > -0.01f)
+        {
+            //Move(0.7f, 0.7f);
+        }
+
     }
 
     void Move(float horizontal, float vertical)

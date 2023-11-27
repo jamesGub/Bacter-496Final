@@ -26,43 +26,67 @@ public class RayDetectorScript : MonoBehaviour
     void Update()
     {
 
-        int searchIndex = Random.Range(0,5);
+        int searchIndex = 0;
 
         Collider2D[] foundItem = Physics2D.OverlapCircleAll(parentBacteria.transform.position, 10);
         //foreach (var x in foundItem) Debug.Log(x.ToString());
 
-        if (foundItem[searchIndex] != null) { 
-            if (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[searchIndex].CompareTag("Player")) { 
-                prey = foundItem[searchIndex];
-                hunting = false;
+        if(foundItem.Length > 5)
+        {
+            searchIndex = Random.Range(0, 5);
+        }
+        else
+        {
+            searchIndex = 0;
+        }
+
+        if (foundItem[searchIndex] != null) 
+        {
+            if (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[searchIndex].CompareTag("Player"))
+            {
+                if (prey == null && hunting == true)
+                {
+                    prey = foundItem[searchIndex];
+                    hunting = false;
+                }
             }
-            if (foundItem[searchIndex].CompareTag("FoodPellet")) { 
+        }
+            if (foundItem[searchIndex].CompareTag("FoodPellet")) 
+            { 
+                if (detectorTarget == null)
+            {
                 detectorTarget = foundItem[searchIndex].gameObject.transform;
                 searching = false;
+            }
+            
             
             }
             else
             {
                 while (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[searchIndex].CompareTag("Player"))
                 {
-                    Debug.Log("while loop triggered");
+                    //Debug.Log("while loop triggered");
                     searchIndex++;
                     if (foundItem.Length < searchIndex)
                     {
-                        break;
+                    searchIndex = 0;
+                        //break;
                     }
                 }
                 if (foundItem[searchIndex] != null)
                 {
                     if (foundItem[searchIndex].CompareTag("FoodPellet"))
                     {
+                        if (detectorTarget == null)
+                    {
                         detectorTarget = foundItem[searchIndex].gameObject.transform;
                         searching = false;
+                    }
 
                     }
                 }
             }
-        }
+        
         /**else
         {
             while (foundItem[searchIndex].CompareTag("AIPlayer") | foundItem[searchIndex].CompareTag("Player"))
@@ -85,21 +109,29 @@ public class RayDetectorScript : MonoBehaviour
             }
             
         }**/
-        Debug.Log("member of array is: " + foundItem[searchIndex]);
+        //Debug.Log("member of array is: " + foundItem[searchIndex]);
         //Debug.Log("PFound: " + prey);
         //Debug.Log("DFound: " + detectorTarget);
-        
+
+        parentBacteria.GetComponent<EnemyController>().SetPrey(prey);
+
         if (prey != null)
         {
-            parentBacteria.GetComponent<EnemyController>().SetPrey(prey);
+            
             if ((prey.transform.position - parentBacteria.transform.position).magnitude > 10)
             {
                 prey = null;
                 hunting = true;
             }
         }
+
+        if (prey == parentBacteria.GetComponent<CircleCollider2D>())
+        {
+            prey = null;
+        }
+
         /**else**/ if (detectorTarget != null) {
-            Debug.Log("set target" + detectorTarget); 
+            //Debug.Log("set target" + detectorTarget); 
             parentBacteria.GetComponent<EnemyController>().SetTarget(detectorTarget);
 
         }

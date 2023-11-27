@@ -328,13 +328,13 @@ MonoBehaviour:
   numberOfClouds: 150
   spawnAreaWidth: 200
   spawnAreaHeight: 200
-  redPelletTexture: {fileID: 2800000, guid: 8fa9220eff3aa9046942953ebb1e382e, type: 3}
-  orangePelletTexture: {fileID: 2800000, guid: f283a08bb7087be46a8b99bce4b5af52, type: 3}
-  yellowPelletTexture: {fileID: 2800000, guid: 8a53b1289d9c7c34c9ded8617863f34f, type: 3}
-  greenPelletTexture: {fileID: 2800000, guid: ff2f9288bbc194d4aaf9ba63cf3c4ec7, type: 3}
-  cyanPelletTexture: {fileID: 2800000, guid: f2c5ce721ae7c4a4f8ec57b5f093a6a6, type: 3}
-  bluePelletTexture: {fileID: 2800000, guid: a87084dba1246e64787e61561d5b5766, type: 3}
-  purplePelletTexture: {fileID: 2800000, guid: 9db6ddaa7e5527146a2abac2816e0f36, type: 3}
+  redPelletTexture: {fileID: 2800000, guid: 4c5f0d4616e44c64ebac64a76c9593ce, type: 3}
+  orangePelletTexture: {fileID: 2800000, guid: 19aec3dfb7e1a8745a065fc74f195598, type: 3}
+  yellowPelletTexture: {fileID: 2800000, guid: b6e785b1b3241014fa9777d961f36c73, type: 3}
+  greenPelletTexture: {fileID: 2800000, guid: e7d6d431ced695f49a799f04b0db7436, type: 3}
+  cyanPelletTexture: {fileID: 2800000, guid: f10e5ef6b4b512c45b83d55937b309ae, type: 3}
+  bluePelletTexture: {fileID: 2800000, guid: 6e29e96a8755dc6438efd12ed62cd3c0, type: 3}
+  purplePelletTexture: {fileID: 2800000, guid: ccab692a4dac3a84bac45186b50a2796, type: 3}
 --- !u!4 &83198533
 Transform:
   m_ObjectHideFlags: 0
@@ -7705,6 +7705,10 @@ PrefabInstance:
       propertyPath: clonePrefab
       value: 
       objectReference: {fileID: 1750085976}
+    - target: {fileID: 1088440567760796083, guid: 69458e01d6c97064f9911ca06ce06ab0, type: 3}
+      propertyPath: pelletPrefab
+      value: 
+      objectReference: {fileID: 6746115482146435591, guid: 08b805c4f6d1bde40a273bb6db9483b2, type: 3}
     - target: {fileID: 1088440567760796087, guid: 69458e01d6c97064f9911ca06ce06ab0, type: 3}
       propertyPath: m_Name
       value: EnemyBacteria(0)
