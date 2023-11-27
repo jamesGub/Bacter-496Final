@@ -19,6 +19,8 @@ public class EnemyController : MonoBehaviour
     private float horizontalValue = 0;
     private float verticalValue = 0;
 
+    private bool escape = false;
+
     [Header("Health System")]
     public float maxHealth = 100f;
     public float currentHealth;
@@ -137,15 +139,18 @@ public class EnemyController : MonoBehaviour
             direction.x = prey.transform.position.x - this.transform.position.x;
             direction.y = prey.transform.position.y - this.transform.position.y;
         }
+       /** if (gameObject.GetComponent<Rigidbody2D>().velocity.x < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.x > -0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y > -0.01f)
+        {
+            //Move(0.7f, 0.7f);
+            direction.x = target.position.x - this.transform.position.x;
+            direction.y = target.position.y - this.transform.position.y;
+        } **/
         direction = Vector2.ClampMagnitude(direction, 1);
         horizontalValue = direction.x;
         verticalValue = direction.y;
         Move(horizontalValue, verticalValue);
 
-        if (gameObject.GetComponent<Rigidbody2D>().velocity.x < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.x > -0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y > -0.01f)
-        {
-            //Move(0.7f, 0.7f);
-        }
+        
 
     }
 
@@ -175,7 +180,7 @@ public class EnemyController : MonoBehaviour
         {
             currentHealth = 0;
             Debug.Log(gameObject.name + " died.");
-            //convert mitosis gauge to a number of pellets, drop that many pellets in a small area.      OOOOOOOOOOOOO THIS IS A NOTE TO REMEMBER TO IMPLEMENT THIS FEATURE OOOOOOOOOOOOO
+            //convert mitosis gauge to a number of pellets, drop that many pellets in a small area.
             for (int i = 0;i<6;i++)
             {
                 Instantiate(pelletPrefab,this.transform.position,Quaternion.identity);
@@ -215,8 +220,9 @@ public class EnemyController : MonoBehaviour
         }else if (other.CompareTag("AIPlayer"))
         {
             Debug.Log("AI collided with each other.");
-            other.GetComponent<EnemyController>().Damage(collisionDamage);
-            currentHealth = currentHealth - other.GetComponent<EnemyController>().DamageOther();
+            //other.GetComponent<EnemyController>().Damage(collisionDamage);
+            currentHealth = currentHealth - collisionDamage;           //other.GetComponent<EnemyController>().DamageOther();
+            escape = true;
         }
     }
 
@@ -235,6 +241,7 @@ public class EnemyController : MonoBehaviour
     public void Damage(float damageValue)
     {
         currentHealth = currentHealth - damageValue;
+        Debug.Log("AI took damage.");
     }
 
     public float DamageOther()

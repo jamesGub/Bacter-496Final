@@ -118,7 +118,7 @@ public class RayDetectorScript : MonoBehaviour
         if (prey != null)
         {
             
-            if ((prey.transform.position - parentBacteria.transform.position).magnitude > 10)
+            if ((prey.transform.position - parentBacteria.transform.position).magnitude > 5)
             {
                 prey = null;
                 hunting = true;
