@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  bacteriaClass: default
+  bacteriaClass: striker
   target: {fileID: 0}
   prey: {fileID: 0}
   origin: {fileID: 0}
@@ -401,6 +401,7 @@ MonoBehaviour:
   currentGauge: 0
   pelletGaugeAmount: 5
   clonePrefab: {fileID: 1088440567760796087}
+  pelletPrefab: {fileID: 0}
 --- !u!58 &1088440567760796084
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -481,4 +482,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acab9193fb96d541902cd7874ae89d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mitosisGauge: {fileID: 0}

@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     //public MitosisGauge mitosisGauge;
 
     [Header("Navigation")]
-    public string bacteriaClass = "default";
+    public string bacteriaClass = "striker";
 
     public Transform target;
     public Collider2D prey;
@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     private Vector2 direction;
     private float horizontalValue = 0;
     private float verticalValue = 0;
+
+    private bool escape = false;
 
     [Header("Health System")]
     public float maxHealth = 100f;
@@ -40,12 +42,14 @@ public class EnemyController : MonoBehaviour
     //private bool eventTriggered = false;
     //private bool regenActive = false;
     public GameObject clonePrefab;
+    public GameObject pelletPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         target = origin.transform; //new Vector3(0f, 0f, 0f);
+        Debug.Log("my class is " + bacteriaClass);
     }
 
     // Update is called once per frame
@@ -64,7 +68,7 @@ public class EnemyController : MonoBehaviour
         {
             //when mitosis gauge is full, randomly selects a new trait, and activates that trait.
             currentGauge = 0f;
-            switch(Random.Range(0, 5))
+            switch(Random.Range(0, 4))
             {
                 case 0:
                     Debug.Log(gameObject.name + " evolved! Lysosomic (0)");
@@ -81,10 +85,6 @@ public class EnemyController : MonoBehaviour
                 case 3:
                     Debug.Log(gameObject.name + " evolved! Coil (3)");
                     ApplyCoilAbility();
-                    break;
-                case 4:
-                    Debug.Log(gameObject.name + " evolved! Offensive (4)");
-                    ApplyOffensiveAbility();
                     break;
                 default:
                     Debug.Log(gameObject.name + " evolved! Lysosomic (default)");
@@ -103,13 +103,13 @@ public class EnemyController : MonoBehaviour
         switch (bacteriaClass)
         {
             case "default":
-                DefaultBehavior();
+                DefaultBehavior(); //change to DefaultBehavior() if this is broken
                 break;
             case "striker":
                 StrikerBehavior();
                 break;
             default:
-                DefaultBehavior();
+                StrikerBehavior();
                 break;
         }
     }
@@ -139,10 +139,19 @@ public class EnemyController : MonoBehaviour
             direction.x = prey.transform.position.x - this.transform.position.x;
             direction.y = prey.transform.position.y - this.transform.position.y;
         }
+       /** if (gameObject.GetComponent<Rigidbody2D>().velocity.x < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y < 0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.x > -0.01f && gameObject.GetComponent<Rigidbody2D>().velocity.y > -0.01f)
+        {
+            //Move(0.7f, 0.7f);
+            direction.x = target.position.x - this.transform.position.x;
+            direction.y = target.position.y - this.transform.position.y;
+        } **/
         direction = Vector2.ClampMagnitude(direction, 1);
         horizontalValue = direction.x;
         verticalValue = direction.y;
         Move(horizontalValue, verticalValue);
+
+        
+
     }
 
     void Move(float horizontal, float vertical)
@@ -171,7 +180,11 @@ public class EnemyController : MonoBehaviour
         {
             currentHealth = 0;
             Debug.Log(gameObject.name + " died.");
-            //convert mitosis gauge to a number of pellets, drop that many pellets in a small area.      OOOOOOOOOOOOO THIS IS A NOTE TO REMEMBER TO IMPLEMENT THIS FEATURE OOOOOOOOOOOOO
+            //convert mitosis gauge to a number of pellets, drop that many pellets in a small area.
+            for (int i = 0;i<6;i++)
+            {
+                Instantiate(pelletPrefab,this.transform.position,Quaternion.identity);
+            }
             Destroy(gameObject);
         }
     }
@@ -207,8 +220,9 @@ public class EnemyController : MonoBehaviour
         }else if (other.CompareTag("AIPlayer"))
         {
             Debug.Log("AI collided with each other.");
-            other.GetComponent<EnemyController>().Damage(collisionDamage);
-            currentHealth = currentHealth - other.GetComponent<EnemyController>().DamageOther();
+            //other.GetComponent<EnemyController>().Damage(collisionDamage);
+            currentHealth = currentHealth - collisionDamage;           //other.GetComponent<EnemyController>().DamageOther();
+            escape = true;
         }
     }
 
@@ -227,6 +241,7 @@ public class EnemyController : MonoBehaviour
     public void Damage(float damageValue)
     {
         currentHealth = currentHealth - damageValue;
+        Debug.Log("AI took damage.");
     }
 
     public float DamageOther()
@@ -236,7 +251,9 @@ public class EnemyController : MonoBehaviour
 
     public void ApplyMetabolicAbility()
     {
-
+        moveSpeed *= 1.6f;
+        Vector3 currentScale = gameObject.transform.localScale;
+        gameObject.transform.localScale = new Vector3(currentScale.x * 0.6f, currentScale.y * 0.6f, currentScale.z * 0.6f);
     }
 
     public void ApplyFlagellaAbility()
@@ -245,11 +262,6 @@ public class EnemyController : MonoBehaviour
     }
 
     public void ApplyCoilAbility()
-    {
-
-    }
-
-    public void ApplyOffensiveAbility()
     {
 
     }
