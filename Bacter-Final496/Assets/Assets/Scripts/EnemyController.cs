@@ -43,6 +43,7 @@ public class EnemyController : MonoBehaviour
     //private bool regenActive = false;
     public GameObject clonePrefab;
     public GameObject pelletPrefab;
+    public GameObject flagella;
 
     // Start is called before the first frame update
     void Start()
@@ -258,7 +259,7 @@ public class EnemyController : MonoBehaviour
 
     public void ApplyFlagellaAbility()
     {
-
+        flagella.SetActive(true);
     }
 
     public void ApplyCoilAbility()

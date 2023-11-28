@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     public float collisionDamage = 20f;
 
+    public GameObject flagella;
+
    public void StartDashAbility()
     {
         if (dashUnlock && !isDashing && dashCharges > 0)
@@ -68,6 +70,10 @@ public class PlayerController : MonoBehaviour
     }
         if (Input.GetKeyDown(KeyCode.Escape)) {
             SceneManager.LoadScene("Menu");
+        }
+        if (dashUnlock)
+        {
+            flagella.SetActive(true);
         }
 }
 
